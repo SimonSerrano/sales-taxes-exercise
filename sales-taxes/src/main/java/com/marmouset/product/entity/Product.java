@@ -1,9 +1,9 @@
-package com.marmouset;
+package com.marmouset.product.entity;
 
 public interface Product {
   boolean isImported();
 
-  boolean isExempted();
+  Category getCategory();
 
   float getPrice();
 }
