@@ -36,7 +36,7 @@ public class PriceTest {
   @Test
   void shouldApplyRate() {
     var price = new Price(10, 50);
-    var expected = new Price(5, 25);
+    var expected = new Price(15, 75);
     assertEquals(expected, price.applyRate(50));
   }
 

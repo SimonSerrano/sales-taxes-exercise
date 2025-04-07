@@ -104,8 +104,7 @@ public class Price {
     var cents = ((this.cents * rate) + decimalRemainder) / 100.0;
     var roundedCents = (int) Math.round(cents * 20) / 20;
     var decimal = ratedDecimal / 100;
-    this.decimal = decimal;
-    this.cents = roundedCents;
+    add(new Price(decimal, roundedCents));
     return this;
   }
 
