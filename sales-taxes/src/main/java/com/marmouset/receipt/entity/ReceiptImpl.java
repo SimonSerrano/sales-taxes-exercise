@@ -12,12 +12,7 @@ public class ReceiptImpl implements Receipt {
 
   private final Collection<TaxedProduct> products;
 
-  /**
-   * Creates a receipt.
-   *
-   * @param products the products in the receipt
-   */
-  public ReceiptImpl(Collection<TaxedProduct> products) {
+  ReceiptImpl(Collection<TaxedProduct> products) {
     this.products = products;
   }
 

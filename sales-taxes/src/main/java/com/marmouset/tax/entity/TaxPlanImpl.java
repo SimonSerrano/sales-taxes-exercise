@@ -11,12 +11,7 @@ public class TaxPlanImpl implements TaxPlan {
 
   private final List<Category> exemptions;
 
-  /**
-   * Creates a tax plan with list of exempted goods.
-   *
-   * @param exemptions list of exempted goods
-   */
-  public TaxPlanImpl(List<Category> exemptions) {
+  TaxPlanImpl(List<Category> exemptions) {
     this.exemptions = exemptions;
   }
 

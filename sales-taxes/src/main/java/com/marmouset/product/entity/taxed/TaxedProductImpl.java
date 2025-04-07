@@ -11,13 +11,7 @@ public class TaxedProductImpl implements TaxedProduct {
   private final Product product;
   private final Price taxedPrice;
 
-  /**
-   * Creates a taxed product.
-   *
-   * @param product    the product
-   * @param taxedPrice the taxed price
-   */
-  public TaxedProductImpl(Product product, Price taxedPrice) {
+  TaxedProductImpl(Product product, Price taxedPrice) {
     this.product = product;
     this.taxedPrice = taxedPrice;
   }

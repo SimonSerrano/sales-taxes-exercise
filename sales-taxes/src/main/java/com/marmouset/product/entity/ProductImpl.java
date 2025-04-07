@@ -12,14 +12,7 @@ public class ProductImpl implements Product {
   private final Category category;
   private final Price price;
 
-  /**
-   * Create a product.
-   *
-   * @param category   its category
-   * @param price      its price
-   * @param isImported whether it is imported
-   */
-  public ProductImpl(Category category, Price price, boolean isImported) {
+  ProductImpl(Category category, Price price, boolean isImported) {
     this.isImported = isImported;
     this.category = Objects.requireNonNull(
         category,

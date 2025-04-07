@@ -2,7 +2,7 @@ package com.marmouset.receipt.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.marmouset.cart.entity.CartFactory;
+import com.marmouset.cart.entity.Cart;
 import com.marmouset.cart.entity.CartFactoryImpl;
 import com.marmouset.price.entity.Price;
 import com.marmouset.product.entity.Category;
@@ -13,8 +13,7 @@ import com.marmouset.product.entity.taxed.TaxedProductFactory;
 import com.marmouset.product.entity.taxed.TaxedProductFactoryImpl;
 import com.marmouset.receipt.entity.ReceiptFactory;
 import com.marmouset.receipt.entity.ReceiptFactoryImpl;
-import com.marmouset.tax.entity.TaxPlan;
-import com.marmouset.tax.entity.TaxPlanImpl;
+import com.marmouset.tax.entity.TaxPlanFactoryImpl;
 import java.util.Arrays;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,29 +26,29 @@ public class IssueReceiptUseCaseImplTest {
 
   private IssueReceiptUseCase useCase;
 
-  private CartFactory cartFactory;
   private ReceiptFactory receiptFactory;
   private ProductFactory productFactory;
   private TaxedProductFactory taxedProductFactory;
-  private TaxPlan taxPlan;
+
+  private Cart cart;
 
   @BeforeEach
   void setUp() {
     productFactory = new ProductFactoryImpl();
-    cartFactory = new CartFactoryImpl();
+    cart = new CartFactoryImpl().create();
     receiptFactory = new ReceiptFactoryImpl();
     taxedProductFactory = new TaxedProductFactoryImpl();
-    taxPlan = new TaxPlanImpl(Arrays.asList(
-        Category.BOOKS,
-        Category.FOOD,
-        Category.MEDICAL));
     useCase = new IssueReceiptUseCaseImpl(
-        taxPlan, receiptFactory, taxedProductFactory);
+        new TaxPlanFactoryImpl().create(
+            Arrays.asList(
+                Category.BOOKS,
+                Category.FOOD,
+                Category.MEDICAL)),
+        receiptFactory, taxedProductFactory);
   }
 
   @Test
   void shouldReturnReceiptOnSimpleProducts() {
-    var cart = cartFactory.create();
     var products = Arrays.asList(
         productFactory.create(new ProductOptions().withPrice(10, 95)),
         productFactory.create(new ProductOptions().withPrice(20, 99)),
@@ -75,7 +74,6 @@ public class IssueReceiptUseCaseImplTest {
 
   @Test
   void shouldReturnReceiptOnExemptedProducts() {
-    var cart = cartFactory.create();
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
             .withPrice(12, 49).withCategory(Category.BOOKS)),
@@ -103,7 +101,6 @@ public class IssueReceiptUseCaseImplTest {
 
   @Test
   void shouldReturnReceiptOnImportedProducts() {
-    var cart = cartFactory.create();
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
             .withPrice(10, 0).withCategory(Category.FOOD).markAsImported()),
@@ -127,7 +124,6 @@ public class IssueReceiptUseCaseImplTest {
 
   @Test
   void shouldReturnReceiptOnMixedProducts() {
-    var cart = cartFactory.create();
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
             .withPrice(27, 99).markAsImported()),
@@ -165,7 +161,6 @@ public class IssueReceiptUseCaseImplTest {
    */
   @Test
   void shouldThrowOnEmptyCart() {
-    var cart = cartFactory.create();
     var expected = receiptFactory.create(Collections.emptyList());
     assertEquals(expected, useCase.issueReceipt(cart));
   }

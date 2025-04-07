@@ -12,10 +12,7 @@ public class CartImpl implements Cart {
 
   private final Collection<Product> products;
 
-  /**
-   * Creates a cart.
-   */
-  public CartImpl() {
+  CartImpl() {
     products = new ArrayList<>();
   }
 
