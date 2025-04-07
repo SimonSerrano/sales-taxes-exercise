@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.marmouset.cart.entity.CartFactory;
 import com.marmouset.cart.entity.CartFactoryImpl;
 import com.marmouset.price.entity.Price;
+import com.marmouset.product.entity.Category;
 import com.marmouset.product.entity.ProductFactory;
 import com.marmouset.product.entity.ProductFactoryImpl;
 import com.marmouset.product.entity.ProductOptions;
@@ -38,7 +39,10 @@ public class IssueReceiptUseCaseImplTest {
     cartFactory = new CartFactoryImpl();
     receiptFactory = new ReceiptFactoryImpl();
     taxedProductFactory = new TaxedProductFactoryImpl();
-    taxPlan = new TaxPlanImpl();
+    taxPlan = new TaxPlanImpl(Arrays.asList(
+        Category.BOOKS,
+        Category.FOOD,
+        Category.MEDICAL_PRODUCT));
     useCase = new IssueReceiptUseCaseImpl(
         taxPlan, receiptFactory, taxedProductFactory);
   }
@@ -71,7 +75,30 @@ public class IssueReceiptUseCaseImplTest {
 
   @Test
   void shouldReturnReceiptOnExemptedProducts() {
+    var cart = cartFactory.create();
+    var products = Arrays.asList(
+        productFactory.create(new ProductOptions()
+            .withPrice(12, 49).withCategory(Category.BOOKS)),
+        productFactory.create(new ProductOptions().withPrice(14, 99)),
+        productFactory.create(new ProductOptions()
+            .withPrice(0, 85).withCategory(Category.FOOD)));
+    products.forEach(cart::add);
+    var taxedProducts = Arrays.asList(
+        taxedProductFactory.create(
+            products.get(0), new Price()
+                .add(products.get(0).getPrice()).add(new Price(0, 0))),
+        taxedProductFactory.create(
+            products.get(1), new Price()
+                .add(products.get(1).getPrice()).add(new Price(1, 50))),
+        taxedProductFactory.create(
+            products.get(2), new Price()
+                .add(products.get(2).getPrice()).add(new Price(0, 0))));
 
+    var expected = receiptFactory.create(taxedProducts);
+    var result = useCase.issueReceipt(cart);
+    assertEquals(expected, result);
+    assertEquals(new Price(1, 50), result.calculateTaxedValue());
+    assertEquals(new Price(29, 83), result.calculateTotal());
   }
 
   @Test
