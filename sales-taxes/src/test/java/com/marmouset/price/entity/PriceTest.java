@@ -41,6 +41,13 @@ public class PriceTest {
   }
 
   @Test
+  void shouldApplyRateOnRoundedValues() {
+    var price = new Price(14, 99);
+    var expected = new Price(16, 49);
+    assertEquals(expected, price.applyRate(10));
+  }
+
+  @Test
   void shouldSubstract() {
     var price1 = new Price(4, 30);
     var price2 = new Price(3, 50);

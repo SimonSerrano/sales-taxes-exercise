@@ -84,7 +84,7 @@ public class Price {
       this.decimal--;
       this.cents = 100 - Math.abs(cents);
     } else {
-      this.cents -= cents;
+      this.cents = cents;
     }
 
     return this;
@@ -99,10 +99,10 @@ public class Price {
   public Price applyRate(int rate) {
     var ratedDecimal = (this.decimal * rate);
     var decimalRemainder = ratedDecimal % 100;
+    var cents = ((this.cents * rate) / 100.0) + decimalRemainder;
     // It is fine to cast to an int since cents are already constrained to be
     // between 0 and 99
-    var cents = ((this.cents * rate) + decimalRemainder) / 100.0;
-    var roundedCents = (int) Math.round(cents * 20) / 20;
+    var roundedCents = (int) Math.round(cents / 5.0f) * 5;
     var decimal = ratedDecimal / 100;
     add(new Price(decimal, roundedCents));
     return this;
