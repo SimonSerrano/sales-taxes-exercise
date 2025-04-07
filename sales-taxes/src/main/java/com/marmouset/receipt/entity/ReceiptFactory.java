@@ -1,8 +1,7 @@
 package com.marmouset.receipt.entity;
 
-import java.util.Collection;
-
 import com.marmouset.product.entity.taxed.TaxedProduct;
+import java.util.Collection;
 
 /**
  * This interface describes how to create receipts.
