@@ -29,11 +29,13 @@ public class ReceiptImplTest {
             taxedProductFactory.create(
                 productFactory.create(
                     new ProductOptions()
+                        .withDescription("towel")
                         .withPrice(10, 0)),
                 new Price(10, 80)),
             taxedProductFactory.create(
                 productFactory.create(
                     new ProductOptions()
+                        .withDescription("napkins")
                         .withPrice(20, 0)),
                 new Price(21, 70))));
   }

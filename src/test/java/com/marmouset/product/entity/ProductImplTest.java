@@ -14,13 +14,34 @@ public class ProductImplTest {
   void shouldThrowIfCategoryIsNull() {
     assertThrows(
         NullPointerException.class,
-        () -> new ProductImpl(null, new Price(), false));
+        () -> new ProductImpl(1, "toto", null, new Price(), false));
   }
 
   @Test
   void shouldThrowIfPriceIsNull() {
     assertThrows(
         NullPointerException.class,
-        () -> new ProductImpl(Category.ANY, null, false));
+        () -> new ProductImpl(1, "toto", Category.ANY, null, false));
+  }
+
+  @Test
+  void shouldThrowIfQuantityIsZeroOrNegative() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new ProductImpl(0, "toto", Category.ANY, null, false));
+  }
+
+  @Test
+  void shouldThrowIfDescriptionIsNull() {
+    assertThrows(
+        NullPointerException.class,
+        () -> new ProductImpl(1, null, Category.ANY, null, false));
+  }
+
+  @Test
+  void shouldThrowIfDescriptionIsEmpty() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new ProductImpl(1, "", Category.ANY, null, false));
   }
 }

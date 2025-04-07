@@ -50,9 +50,12 @@ public class IssueReceiptUseCaseImplTest {
   @Test
   void shouldReturnReceiptOnSimpleProducts() {
     var products = Arrays.asList(
-        productFactory.create(new ProductOptions().withPrice(10, 95)),
-        productFactory.create(new ProductOptions().withPrice(20, 99)),
-        productFactory.create(new ProductOptions().withPrice(15, 45)));
+        productFactory.create(new ProductOptions()
+            .withDescription("toothbrush").withPrice(10, 95)),
+        productFactory.create(new ProductOptions()
+            .withDescription("cissors").withPrice(20, 99)),
+        productFactory.create(new ProductOptions()
+            .withDescription("deodorant").withPrice(15, 45)));
     products.forEach(cart::add);
     var taxedProducts = Arrays.asList(
         taxedProductFactory.create(
@@ -76,9 +79,12 @@ public class IssueReceiptUseCaseImplTest {
   void shouldReturnReceiptOnExemptedProducts() {
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
+            .withDescription("novel")
             .withPrice(12, 49).withCategory(Category.BOOKS)),
-        productFactory.create(new ProductOptions().withPrice(14, 99)),
         productFactory.create(new ProductOptions()
+            .withDescription("toothbrush").withPrice(14, 99)),
+        productFactory.create(new ProductOptions()
+            .withDescription("beans")
             .withPrice(0, 85).withCategory(Category.FOOD)));
     products.forEach(cart::add);
     var taxedProducts = Arrays.asList(
@@ -103,8 +109,10 @@ public class IssueReceiptUseCaseImplTest {
   void shouldReturnReceiptOnImportedProducts() {
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
+            .withDescription("beans")
             .withPrice(10, 0).withCategory(Category.FOOD).markAsImported()),
         productFactory.create(new ProductOptions()
+            .withDescription("toothbrush")
             .withPrice(47, 50).markAsImported()));
     products.forEach(cart::add);
     var taxedProducts = Arrays.asList(
@@ -126,12 +134,16 @@ public class IssueReceiptUseCaseImplTest {
   void shouldReturnReceiptOnMixedProducts() {
     var products = Arrays.asList(
         productFactory.create(new ProductOptions()
+            .withDescription("toothbrush")
             .withPrice(27, 99).markAsImported()),
         productFactory.create(new ProductOptions()
+            .withDescription("towel")
             .withPrice(18, 99)),
         productFactory.create(new ProductOptions()
+            .withDescription("pills")
             .withPrice(9, 75).withCategory(Category.MEDICAL)),
         productFactory.create(new ProductOptions()
+            .withDescription("carrots")
             .withPrice(11, 25).withCategory(Category.FOOD).markAsImported()));
     products.forEach(cart::add);
     var taxedProducts = Arrays.asList(

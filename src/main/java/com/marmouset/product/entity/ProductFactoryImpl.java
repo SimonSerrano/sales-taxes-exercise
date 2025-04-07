@@ -11,6 +11,8 @@ public class ProductFactoryImpl implements ProductFactory {
   public Product create(ProductOptions options) {
     Objects.requireNonNull(options, "Product options cannot be null");
     return new ProductImpl(
+        options.getQuantity(),
+        options.getDescription(),
         options.getCategory(),
         options.getPrice(),
         options.isImported());

@@ -8,11 +8,27 @@ import java.util.Objects;
  */
 public class ProductImpl implements Product {
 
+  private final int quantity;
+  private final String description;
   private final boolean isImported;
   private final Category category;
   private final Price price;
 
-  ProductImpl(Category category, Price price, boolean isImported) {
+  ProductImpl(
+      int quantity,
+      String description,
+      Category category,
+      Price price,
+      boolean isImported) {
+    if (quantity < 1) {
+      throw new IllegalArgumentException("Quantity cannot be lower than 1");
+    }
+    this.quantity = quantity;
+    this.description = Objects.requireNonNull(
+        description, "Description cannot be null");
+    if (this.description.isEmpty()) {
+      throw new IllegalArgumentException("Description cannot be empty");
+    }
     this.isImported = isImported;
     this.category = Objects.requireNonNull(
         category,
@@ -73,6 +89,16 @@ public class ProductImpl implements Product {
       return false;
     }
     return true;
+  }
+
+  @Override
+  public int getQuantity() {
+    return quantity;
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
   }
 
 }

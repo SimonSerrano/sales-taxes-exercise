@@ -7,6 +7,8 @@ import com.marmouset.price.entity.Price;
  */
 public class ProductOptions {
 
+  private int quantity;
+  private String description;
   private Category category;
   private Price price;
   private boolean isImported;
@@ -15,9 +17,33 @@ public class ProductOptions {
    * Creates a ProductOptions.
    */
   public ProductOptions() {
+    quantity = 1;
+    description = null;
     category = Category.ANY;
     price = null;
     isImported = false;
+  }
+
+  /**
+   * Set the quantity.
+   *
+   * @param quantity the quantity
+   * @return this
+   */
+  public ProductOptions withQuantity(int quantity) {
+    this.quantity = quantity;
+    return this;
+  }
+
+  /**
+   * Set the description.
+   *
+   * @param description the description
+   * @return this
+   */
+  public ProductOptions withDescription(String description) {
+    this.description = description;
+    return this;
   }
 
   /**
@@ -51,6 +77,14 @@ public class ProductOptions {
   public ProductOptions markAsImported() {
     this.isImported = true;
     return this;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public Category getCategory() {
