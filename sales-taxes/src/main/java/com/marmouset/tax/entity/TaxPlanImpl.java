@@ -22,10 +22,16 @@ public class TaxPlanImpl implements TaxPlan {
 
   @Override
   public int getRate(Product product) {
+    var result = 10;
     if (exemptions.contains(product.getCategory())) {
-      return 0;
+      result = 0;
     }
-    return 10;
+
+    if (product.isImported()) {
+      result += 5;
+    }
+
+    return result;
   }
 
 }

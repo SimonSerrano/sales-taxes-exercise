@@ -48,6 +48,13 @@ public class PriceTest {
   }
 
   @Test
+  void shouldApplyRateOnSmallRate() {
+    var price = new Price(11, 25);
+    var expected = new Price(11, 85);
+    assertEquals(expected, price.applyRate(5));
+  }
+
+  @Test
   void shouldSubstract() {
     var price1 = new Price(4, 30);
     var price2 = new Price(3, 50);

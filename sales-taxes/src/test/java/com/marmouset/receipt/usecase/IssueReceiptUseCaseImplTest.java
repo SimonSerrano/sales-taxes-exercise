@@ -42,7 +42,7 @@ public class IssueReceiptUseCaseImplTest {
     taxPlan = new TaxPlanImpl(Arrays.asList(
         Category.BOOKS,
         Category.FOOD,
-        Category.MEDICAL_PRODUCT));
+        Category.MEDICAL));
     useCase = new IssueReceiptUseCaseImpl(
         taxPlan, receiptFactory, taxedProductFactory);
   }
@@ -103,12 +103,60 @@ public class IssueReceiptUseCaseImplTest {
 
   @Test
   void shouldReturnReceiptOnImportedProducts() {
+    var cart = cartFactory.create();
+    var products = Arrays.asList(
+        productFactory.create(new ProductOptions()
+            .withPrice(10, 0).withCategory(Category.FOOD).markAsImported()),
+        productFactory.create(new ProductOptions()
+            .withPrice(47, 50).markAsImported()));
+    products.forEach(cart::add);
+    var taxedProducts = Arrays.asList(
+        taxedProductFactory.create(
+            products.get(0), new Price()
+                .add(products.get(0).getPrice()).add(new Price(0, 50))),
+        taxedProductFactory.create(
+            products.get(1), new Price()
+                .add(products.get(1).getPrice()).add(new Price(7, 15))));
 
+    var expected = receiptFactory.create(taxedProducts);
+    var result = useCase.issueReceipt(cart);
+    assertEquals(expected, result);
+    assertEquals(new Price(7, 65), result.calculateTaxedValue());
+    assertEquals(new Price(65, 15), result.calculateTotal());
   }
 
   @Test
   void shouldReturnReceiptOnMixedProducts() {
+    var cart = cartFactory.create();
+    var products = Arrays.asList(
+        productFactory.create(new ProductOptions()
+            .withPrice(27, 99).markAsImported()),
+        productFactory.create(new ProductOptions()
+            .withPrice(18, 99)),
+        productFactory.create(new ProductOptions()
+            .withPrice(9, 75).withCategory(Category.MEDICAL)),
+        productFactory.create(new ProductOptions()
+            .withPrice(11, 25).withCategory(Category.FOOD).markAsImported()));
+    products.forEach(cart::add);
+    var taxedProducts = Arrays.asList(
+        taxedProductFactory.create(
+            products.get(0), new Price()
+                .add(products.get(0).getPrice()).add(new Price(4, 20))),
+        taxedProductFactory.create(
+            products.get(1), new Price()
+                .add(products.get(1).getPrice()).add(new Price(1, 90))),
+        taxedProductFactory.create(
+            products.get(2), new Price()
+                .add(products.get(2).getPrice()).add(new Price(0, 0))),
+        taxedProductFactory.create(
+            products.get(3), new Price()
+                .add(products.get(3).getPrice()).add(new Price(0, 60))));
 
+    var expected = receiptFactory.create(taxedProducts);
+    var result = useCase.issueReceipt(cart);
+    assertEquals(expected, result);
+    assertEquals(new Price(6, 70), result.calculateTaxedValue());
+    assertEquals(new Price(74, 68), result.calculateTotal());
   }
 
   /**

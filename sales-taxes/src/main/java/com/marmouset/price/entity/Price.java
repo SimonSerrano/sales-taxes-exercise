@@ -102,7 +102,9 @@ public class Price {
     var cents = ((this.cents * rate) / 100.0) + decimalRemainder;
     // It is fine to cast to an int since cents are already constrained to be
     // between 0 and 99
-    var roundedCents = (int) Math.round(cents / 5.0f) * 5;
+    // Also, we do not apply to the nearest but to the closest upper 0.05 value
+    // eventhough the specs mention the nearest
+    var roundedCents = (int) ((cents + 4) / 5) * 5;
     var decimal = ratedDecimal / 100;
     add(new Price(decimal, roundedCents));
     return this;
