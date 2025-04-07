@@ -1,15 +1,31 @@
 package com.marmouset.receipt.entity;
 
+import com.marmouset.price.entity.Price;
+import com.marmouset.product.entity.taxed.TaxedProduct;
 import java.util.Collection;
 
-import com.marmouset.product.entity.TaxedProduct;
-
+/**
+ * This interface represents a receipt of a cart after tax.
+ */
 public interface Receipt {
-  Collection<TaxedProduct<?>> getProducts();
+  /**
+   * Get the products of the receipt.
+   *
+   * @return the taxed products
+   */
+  Collection<TaxedProduct> getProducts();
 
-  float calculateTaxedValue();
+  /**
+   * Calculate the taxed value.
+   *
+   * @return the taxed price
+   */
+  Price calculateTaxedValue();
 
-  float calculateTotal();
-
-  String print();
+  /**
+   * Calculate the total price of the receipt.
+   *
+   * @return the total price
+   */
+  Price calculateTotal();
 }
