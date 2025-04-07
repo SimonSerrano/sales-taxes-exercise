@@ -1,6 +1,6 @@
 package com.marmouset.receipt.entity;
 
-import com.marmouset.product.entity.taxed.TaxedProduct;
+import com.marmouset.product.taxed.entity.TaxedProduct;
 import java.util.Collection;
 
 /**

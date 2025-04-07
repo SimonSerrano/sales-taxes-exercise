@@ -2,8 +2,8 @@ package com.marmouset.receipt.usecase;
 
 import com.marmouset.cart.entity.Cart;
 import com.marmouset.price.entity.Price;
-import com.marmouset.product.entity.taxed.TaxedProduct;
-import com.marmouset.product.entity.taxed.TaxedProductFactory;
+import com.marmouset.product.taxed.entity.TaxedProduct;
+import com.marmouset.product.taxed.entity.TaxedProductFactory;
 import com.marmouset.receipt.entity.Receipt;
 import com.marmouset.receipt.entity.ReceiptFactory;
 import com.marmouset.tax.entity.TaxPlan;

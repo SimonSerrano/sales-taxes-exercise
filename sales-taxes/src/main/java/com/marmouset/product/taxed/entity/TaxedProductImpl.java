@@ -1,4 +1,4 @@
-package com.marmouset.product.entity.taxed;
+package com.marmouset.product.taxed.entity;
 
 import com.marmouset.price.entity.Price;
 import com.marmouset.product.entity.Product;

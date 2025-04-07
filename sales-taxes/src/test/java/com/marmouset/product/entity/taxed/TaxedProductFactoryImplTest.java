@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.marmouset.price.entity.Price;
 import com.marmouset.product.entity.ProductFactoryImpl;
 import com.marmouset.product.entity.ProductOptions;
+import com.marmouset.product.taxed.entity.TaxedProductFactory;
+import com.marmouset.product.taxed.entity.TaxedProductFactoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
