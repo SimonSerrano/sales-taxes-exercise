@@ -27,7 +27,7 @@ public class Price {
     }
 
     if (cents > 99) {
-      throw new IllegalArgumentException("Cents cannot me 100 or more");
+      throw new IllegalArgumentException("Cents cannot be 100 or more");
     }
 
     this.decimal = decimal;
