@@ -75,6 +75,7 @@
 ### Built With
 
 * [![Java][Java]][Java-url]
+* [![Maven][Maven]][Maven-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,3 +154,5 @@ Project Link: [https://github.com/SimonSerrano/sales-taxes-exercise](https://git
 [linkedin-url]: https://linkedin.com/in/simon-serrano
 [Java]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
 [Java-url]: https://www.java.com/fr/
+[Maven]: https://img.shields.io/badge/MAVEN-000000?style=for-the-badge&logo=apachemaven&logoColor=blue
+[Maven-url]: https://maven.apache.org/
