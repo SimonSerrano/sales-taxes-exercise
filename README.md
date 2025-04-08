@@ -18,6 +18,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+[![Conventional Commit][conventional-commits-shield]][conventional-commits-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -136,6 +137,8 @@ Project Link: [https://github.com/SimonSerrano/sales-taxes-exercise](https://git
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[conventional-commits-shield]: https://img.shields.io/badge/Conventional_Commits-%E2%9C%93-brightgreen?style=for-the-badge&logo=conventionalcommits
+[conventional-commits-url]: https://www.conventionalcommits.org/en/v1.0.0/
 [contributors-shield]: https://img.shields.io/github/contributors/SimonSerrano/sales-taxes-exercise.svg?style=for-the-badge
 [contributors-url]: https://github.com/SimonSerrano/sales-taxes-exercise/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/SimonSerrano/sales-taxes-exercise.svg?style=for-the-badge
